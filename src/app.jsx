@@ -1,14 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Users from "./components/users";
-import SearchStatus from "./components/SearchStatus";
 import api from "./API";
 
 const App = () => {
-    const [users, setUsers] = useState(api.users.fetchAll());
-
-    const hasBookMarkProperty = users.length
-        ? Object.prototype.hasOwnProperty.call(users[0], "BookMark")
-        : true;
+    const [users, setUsers] = useState();
+    useEffect(() => {
+        api.users.fetchAll().then((data) => setUsers(data));
+    }, []);
+    const hasBookMarkProperty =
+        users && users.length
+            ? Object.prototype.hasOwnProperty.call(users[0], "BookMark")
+            : true;
     if (!hasBookMarkProperty) users.map((m) => (m.BookMark = false));
 
     const handleDelete = (userId) => {
@@ -19,21 +21,20 @@ const App = () => {
     const handleBookMarkToggle = (userId) => {
         const newUsers = [...users];
         const elementIndex = users.findIndex((f) => f._id === userId);
-        newUsers[elementIndex].BookMark =
-            newUsers[elementIndex].BookMark ===
-            !newUsers[elementIndex].BookMark;
+        newUsers[elementIndex].BookMark = !newUsers[elementIndex].BookMark;
         setUsers(newUsers);
     };
 
     return (
         <div className="col-lg-8 mx-auto p-3 py-md-5">
             <main>
-                <SearchStatus totalItems={users.length} />
-                <Users
-                    users={users}
-                    onBookMarkToggle={handleBookMarkToggle}
-                    onDelete={handleDelete}
-                />
+                {Users && (
+                    <Users
+                        users={users}
+                        onBookMarkToggle={handleBookMarkToggle}
+                        onDelete={handleDelete}
+                    />
+                )}
             </main>
         </div>
     );
