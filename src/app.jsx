@@ -9,9 +9,9 @@ const App = () => {
     }, []);
     const hasBookMarkProperty =
         users && users.length
-            ? Object.prototype.hasOwnProperty.call(users[0], "BookMark")
+            ? Object.prototype.hasOwnProperty.call(users[0], "bookmark")
             : true;
-    if (!hasBookMarkProperty) users.map((m) => (m.BookMark = false));
+    if (!hasBookMarkProperty) users.map((m) => (m.bookmark = false));
 
     const handleDelete = (userId) => {
         const newUsers = users.filter((f) => f._id !== userId);
@@ -21,7 +21,7 @@ const App = () => {
     const handleBookMarkToggle = (userId) => {
         const newUsers = [...users];
         const elementIndex = users.findIndex((f) => f._id === userId);
-        newUsers[elementIndex].BookMark = !newUsers[elementIndex].BookMark;
+        newUsers[elementIndex].bookmark = !newUsers[elementIndex].bookmark;
         setUsers(newUsers);
     };
 

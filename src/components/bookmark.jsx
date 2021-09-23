@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 const BookMark = (props) => {
     const getBookMarkIcon = () => {
         let className = "";
-        const isBookMark = props.BookMark;
+        const isBookMark = props.bookmark;
         if (!isBookMark) className = "bi bi-bookmark";
         else className = "bi bi-bookmark-fill";
         return className;
@@ -17,7 +17,7 @@ const BookMark = (props) => {
 
 BookMark.propTypes = {
     _id: PropTypes.string.isRequired,
-    BookMark: PropTypes.bool.isRequired,
+    bookmark: PropTypes.bool.isRequired,
     onBookMarkToggle: PropTypes.func.isRequired
 };
 
