@@ -8,7 +8,7 @@ const User = ({ user, onDelete, onBookMarkToggle }) => {
         <tr key={user._id}>
             <td>{user.name}</td>
             <td>
-                {user.qualities.map((quality, ind) => (
+                {user.qualities.map((quality) => (
                     <Qualities key={quality._id} {...quality} />
                 ))}
             </td>

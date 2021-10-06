@@ -1,41 +1,22 @@
-import React, { useState, useEffect } from "react";
-import Users from "./components/users";
-import api from "./API";
+import React from "react";
+import NavBar from "./components/navBar";
+import { Route, Switch } from "react-router-dom";
+import Login from "./layouts/login";
+import Main from "./layouts/main";
+import UsersTab from "./layouts/usersTab";
+import UserCard from "./components/userCard";
 
 const App = () => {
-    const [users, setUsers] = useState();
-    useEffect(() => {
-        api.users.fetchAll().then((data) => setUsers(data));
-    }, []);
-    const hasBookMarkProperty =
-        users && users.length
-            ? Object.prototype.hasOwnProperty.call(users[0], "bookmark")
-            : true;
-    if (!hasBookMarkProperty) users.map((m) => (m.bookmark = false));
-
-    const handleDelete = (userId) => {
-        const newUsers = users.filter((f) => f._id !== userId);
-        setUsers(newUsers);
-    };
-
-    const handleBookMarkToggle = (userId) => {
-        const newUsers = [...users];
-        const elementIndex = users.findIndex((f) => f._id === userId);
-        newUsers[elementIndex].bookmark = !newUsers[elementIndex].bookmark;
-        setUsers(newUsers);
-    };
-
     return (
-        <div className="col-lg-8 mx-auto p-3 py-md-5">
-            <main>
-                {Users && (
-                    <Users
-                        users={users}
-                        onBookMarkToggle={handleBookMarkToggle}
-                        onDelete={handleDelete}
-                    />
-                )}
-            </main>
+        <div>
+            <NavBar />
+            <Switch>
+                <Route path="/" exact component={Main} />{" "}
+                <Route path="/main" exact component={Main} />{" "}
+                <Route path="/login" component={Login} />
+                <Route path="/users" exact component={UsersTab} />
+                <Route path="/users/:userId" component={UserCard} />
+            </Switch>
         </div>
     );
 };

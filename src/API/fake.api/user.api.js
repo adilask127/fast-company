@@ -143,14 +143,29 @@ const users = [
     }
 ];
 
-export function fetchAll() {
-    return new Promise((resolve) => {
+// export function fetchAll() {
+//     return new Promise((resolve) => {
+//         window.setTimeout(function () {
+//             resolve(users);
+//         }, 2000);
+//     });
+// }
+
+const fetchAll = () =>
+    new Promise((resolve) => {
         window.setTimeout(function () {
             resolve(users);
         }, 2000);
     });
-}
 
-// export default {
-//     fetchAll
-// };
+const getById = (id) =>
+    new Promise((resolve) => {
+        window.setTimeout(function () {
+            resolve(users.find((user) => user._id === id));
+            console.log(users.find((user) => user._id === id));
+        }, 1000);
+    });
+export default {
+    fetchAll,
+    getById
+};

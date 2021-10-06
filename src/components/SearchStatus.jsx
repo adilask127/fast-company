@@ -28,7 +28,7 @@ const SearchStatus = (props) => {
             }
             return `${number} человек тусанет с тобой сегодня`;
         } else {
-            return `Никто с тобой не тусанет`;
+            return ` с тобой никто не тусанет`;
         }
     };
 
